@@ -6,6 +6,7 @@ import ApplicationState, { IProject } from '../../../store/applicationState';
 import Form from 'react-jsonschema-form'
 import formSchema from './schema.json';
 import uiSchema from './uiSchema.json'
+import '../../../assets/sass/theme.scss'
 import './projectSettingsPage.scss'
 import {getRandomColor} from '../../../common/utils'
 import { debug } from 'util';
@@ -35,40 +36,41 @@ function mapDispatchToProps(dispatch) {
 function ArrayFieldTemplate(props) {
     return (
         <div className={props.className}>
-        {props.items &&
-          props.items.map(element => (
+        {props.items && props.items.map(element => (
             <div key={element.index}>
+                <table className="center">
+                    <tr>
+                        <td>
+                            <button disabled={element.hasMoveDown === false}
+                            onClick={element.onReorderClick(
+                                element.index,
+                                element.index + 1
+                            )}>Down</button>
+                        </td>
+                        <td>
+                            <div className="button delete-btn" onClick={element.onDropIndexClick(element.index)}>Remove Tag</div>
+                        </td>
+                        <td>
+                            <button disabled={element.hasMoveUp === false}
+                            onClick={element.onReorderClick(
+                                element.index,
+                                element.index - 1
+                            )}>Up</button>
+                        </td>
+                    </tr>
+                </table>
+                    
+
+                    
               <div>{element.children}</div>
-              {element.hasMoveDown && (
-                <button
-                  onClick={element.onReorderClick(
-                    element.index,
-                    element.index + 1
-                  )}>
-                  Down
-                </button>
-              )}
-              {element.hasMoveUp && (
-                <button
-                  onClick={element.onReorderClick(
-                    element.index,
-                    element.index - 1
-                  )}>
-                  Up
-                </button>
-              )}
-              <button onClick={element.onDropIndexClick(element.index)}>
-                Delete
-              </button>
+              
               <hr />
             </div>
           ))}
   
         {props.canAdd && (
           <div className="row">
-            <p className="col-xs-3 col-xs-offset-9 array-item-add text-right">
-              <div onClick={props.onAddClick} className="button big-btn">Add Tag</div>
-            </p>
+              <div onClick={props.onAddClick} className="button add-btn">Add Tag</div>
           </div>
         )}
       </div>

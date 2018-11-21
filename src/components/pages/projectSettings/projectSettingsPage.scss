@@ -1,12 +1,23 @@
+$color-yellow: #ffbb00;
+$color-green: #7cbb00;
+$color-blue: #00a1f1;
+$color-red: #DB4437;
+
 .button {
-    background-color: #000000;
-    color: #FFFFFF;
     padding: 10px;
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     margin: 0 auto;
     text-align: center;
+}
+
+.center {
+    margin: 0 auto;
+}
+
+table {
+    table-layout: fixed;
 }
 
 .small-btn {
@@ -22,4 +33,16 @@
 .big-btn {
     width: 90px;
     height: 40px;
+}
+
+.add-btn {
+    background-color: $color-blue;
+    color: #FFFFFF;
+    font-weight: bolder
+}
+
+.delete-btn {
+    background-color: $color-red;
+    color: #FFFFFF;
+    font-weight: bolder
 }
