@@ -91,7 +91,6 @@ export default class ProjectSettingsPage extends React.Component<ProjectSettings
     }
 
     onFormSubmit = (form) => {
-        debugger;
         this.setState({
             project: form.formData
         }, () => {

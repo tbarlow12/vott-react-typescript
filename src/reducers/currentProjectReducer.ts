@@ -8,6 +8,8 @@ export const reducer = (state: IProject = null, action: any) => {
         case ActionTypes.LOAD_PROJECT_SUCCESS:
             return { ...action.project };
         case ActionTypes.SAVE_PROJECT_SUCCESS:
+            // todo State is null here when creating a new project
+            // best place to initialize?
             if (state.id === action.project.id) {
                 return { ...action.project };
             } else {
