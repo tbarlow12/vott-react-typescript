@@ -10,8 +10,9 @@ import '../../../assets/sass/theme.scss'
 import './projectSettingsPage.scss'
 import {getRandomColor} from '../../../common/utils'
 import { debug } from 'util';
+import { RouteComponentProps } from 'react-router-dom';
 
-interface ProjectSettingsPageProps {
+interface ProjectSettingsPageProps extends RouteComponentProps, React.Props<ProjectSettingsPage> {
     currentProject: IProject;
     actions: IProjectActions;
 }
@@ -94,7 +95,10 @@ export default class ProjectSettingsPage extends React.Component<ProjectSettings
         this.setState({
             project: form.formData
         }, () => {
-            this.props.actions.saveProject(this.state.project);
+            this.props.actions.saveProject(this.state.project)
+                .then(project => {
+                    this.props.history.push(`/projects/${project.id}/edit`);
+                });
         });
     }
 
