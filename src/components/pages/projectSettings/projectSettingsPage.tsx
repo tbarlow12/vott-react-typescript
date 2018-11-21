@@ -8,7 +8,7 @@ import formSchema from './schema.json';
 import uiSchema from './uiSchema.json'
 import '../../../assets/sass/theme.scss'
 import './projectSettingsPage.scss'
-import {getRandomColor} from '../../../common/utils'
+import { getRandomColor } from '../../../common/utils'
 import { debug } from 'util';
 import { RouteComponentProps } from 'react-router-dom';
 
