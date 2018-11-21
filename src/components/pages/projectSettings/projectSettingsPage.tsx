@@ -6,6 +6,8 @@ import ApplicationState, { IProject } from '../../../store/applicationState';
 import Form from 'react-jsonschema-form'
 import formSchema from './schema.json';
 import uiSchema from './uiSchema.json'
+import './projectSettingsPage.scss'
+import {getRandomColor} from '../../../common/utils'
 
 interface ProjectSettingsPageProps {
     currentProject: IProject;
@@ -33,7 +35,7 @@ function ArrayFieldTemplate(props) {
     return (
       <div>
         {props.items.map(element => element.children)}
-        {props.canAdd && <button type="button" onClick={props.onAddClick}></button>}
+        {props.canAdd && <div className="button big-btn" onClick={props.onAddClick}>Add Tag</div>}
       </div>
     );
   }
