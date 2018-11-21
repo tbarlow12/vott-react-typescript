@@ -1,0 +1,9 @@
+{
+    "tags": {
+        "items": {
+            "color": {
+                "ui:widget": "color"
+            }
+        }
+    }
+}

@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux';
 import IProjectActions, * as projectActions from '../../../actions/projectActions';
 import ApplicationState, { IProject } from '../../../store/applicationState';
 import Form from 'react-jsonschema-form'
-import formSchema from './projectSettingsPage.json';
+import formSchema from './schema.json';
+import uiSchema from './uiSchema.json'
 
 interface ProjectSettingsPageProps {
     currentProject: IProject;
@@ -57,6 +58,7 @@ export default class ProjectSettingsPage extends React.Component<ProjectSettings
 
                 <Form
                     schema={this.state.formSchema}
+                    uiSchema={uiSchema}
                     formData={this.state.project}
                     onSubmit={this.onFormSubmit} />
             </div>
