@@ -2,7 +2,8 @@
     "tags": {
         "items": {
             "color": {
-                "ui:widget": "color"
+                "ui:widget": "color",
+                "ui:emptyValue": "000111"
             }
         }
     }
