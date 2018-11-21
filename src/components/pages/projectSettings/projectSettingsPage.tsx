@@ -29,6 +29,16 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
+function ArrayFieldTemplate(props) {
+    return (
+      <div>
+        {props.items.map(element => element.children)}
+        {props.canAdd && <button type="button" onClick={props.onAddClick}></button>}
+      </div>
+    );
+  }
+  
+
 @connect(mapStateToProps, mapDispatchToProps)
 export default class ProjectSettingsPage extends React.Component<ProjectSettingsPageProps, ProjectSettingsPageState> {
     constructor(props, context) {
@@ -60,6 +70,7 @@ export default class ProjectSettingsPage extends React.Component<ProjectSettings
                     schema={this.state.formSchema}
                     uiSchema={uiSchema}
                     formData={this.state.project}
+                    ArrayFieldTemplate={ArrayFieldTemplate}
                     onSubmit={this.onFormSubmit} />
             </div>
         );
