@@ -4,8 +4,9 @@ import { bindActionCreators } from 'redux';
 import IProjectActions, * as projectActions from '../../../actions/projectActions';
 import ApplicationState, { IProject } from '../../../store/applicationState';
 import Form from 'react-jsonschema-form'
-import formSchema from './projectSettingsPage.json';
 import { RouteComponentProps } from 'react-router-dom';
+import TagsInput from '../../common/tagsInput'
+import ProjectForm from './projectForm'
 
 interface ProjectSettingsPageProps extends RouteComponentProps, React.Props<ProjectSettingsPage> {
     currentProject: IProject;
@@ -14,7 +15,6 @@ interface ProjectSettingsPageProps extends RouteComponentProps, React.Props<Proj
 
 interface ProjectSettingsPageState {
     project: IProject;
-    formSchema: any;
 }
 
 function mapStateToProps(state: ApplicationState) {
@@ -35,8 +35,7 @@ export default class ProjectSettingsPage extends React.Component<ProjectSettings
         super(props, context);
 
         this.state = {
-            formSchema: { ...formSchema },
-            project: this.props.currentProject
+            project: this.props.currentProject,
         };
 
         this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -53,16 +52,18 @@ export default class ProjectSettingsPage extends React.Component<ProjectSettings
         });
     }
 
+    onFormChange = (form) => {
+    }
+
     render() {
         return (
             <div className="m-3 text-light">
                 <h3><i className="fas fa-sliders-h fa-1x"></i><span className="px-2">Project Settings</span></h3>
                 <hr />
-
-                <Form
-                    schema={this.state.formSchema}
-                    formData={this.state.project}
-                    onSubmit={this.onFormSubmit} />
+                <ProjectForm
+                    project={this.state.project}
+                    onSubmit={this.onFormSubmit}
+                    onChange={this.onFormChange}/>
             </div>
         );
     }
