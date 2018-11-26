@@ -36,11 +36,8 @@ function createWindow() {
     ipcMainProxy.register('RELOAD_APP', onReloadApp);
     ipcMainProxy.register('TOGGLE_DEV_TOOLS', onToggleDevTools);
     ipcMainProxy.register('OPEN_LOCAL_FOLDER', onOpenLocalFolder);
-<<<<<<< HEAD
-=======
     ipcMainProxy.register('WRITE_LOCAL_FILE', onWriteLocalFile);
     ipcMainProxy.register('DELETE_LOCAL_FILE', onDeleteLocalFile);
->>>>>>> 4b642719de453350c10a32fda89d622c2bfeba30
 }
 
 function onReloadApp() {
@@ -69,8 +66,6 @@ function onOpenLocalFolder() {
     });
 }
 
-<<<<<<< HEAD
-=======
 function onWriteLocalFile(sender, args) {
     return new Promise<void>((resolve, reject) => {
         const dirName: fs.PathLike = path.dirname(args.path);
@@ -104,7 +99,6 @@ function onDeleteLocalFile(sender, args) {
     })
 }
 
->>>>>>> 4b642719de453350c10a32fda89d622c2bfeba30
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
