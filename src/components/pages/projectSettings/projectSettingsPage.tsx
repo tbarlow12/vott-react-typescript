@@ -8,10 +8,13 @@ import formSchema from './projectSettingsPage.json';
 import uiSchema from './projectSettingsPage.ui.json';
 import { RouteComponentProps } from 'react-router-dom';
 import ConnectionPicker from '../../common/connectionPicker';
+import IConnectionActions, * as connectionActions from '../../../actions/connectionActions';
+import deepmerge from 'deepmerge';
 
 interface ProjectSettingsPageProps extends RouteComponentProps, React.Props<ProjectSettingsPage> {
     currentProject: IProject;
-    actions: IProjectActions;
+    projectActions: IProjectActions;
+    connectionActions: IConnectionActions;
     connections: IConnection[];
 }
 
@@ -30,7 +33,8 @@ function mapStateToProps(state: ApplicationState) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(projectActions, dispatch)
+        projectActions: bindActionCreators(projectActions, dispatch),
+        connectionActions: bindActionCreators(connectionActions, dispatch)
     };
 }
 
@@ -45,11 +49,43 @@ export default class ProjectSettingsPage extends React.Component<ProjectSettings
 
         this.state = {
             formSchema: { ...formSchema },
-            uiSchema: { ...uiSchema },
+            uiSchema: uiSchema,
             project: this.props.currentProject,
         };
 
         this.onFormSubmit = this.onFormSubmit.bind(this);
+    }
+
+    async componentDidMount() {
+        const projectId = this.props.match.params['projectId'];
+        if (!this.state.project && projectId) {
+            const currentProject = await this.props.projectActions.loadProject(projectId);
+
+            this.setState({
+                project: currentProject
+            });
+        }
+
+        if (!this.props.connections) {
+            await this.props.connectionActions.loadConnections();
+        }
+
+        const overrideUiSchema = {
+            sourceConnectionId: {
+                'ui:options': {
+                    connections: this.props.connections
+                }
+            },
+            targetConnectionId: {
+                'ui:options': {
+                    connections: this.props.connections
+                }
+            }
+        };
+
+        this.setState({
+            uiSchema: deepmerge(uiSchema, overrideUiSchema)
+        });
     }
 
     onFormSubmit = (form) => {
@@ -60,7 +96,7 @@ export default class ProjectSettingsPage extends React.Component<ProjectSettings
                 targetConnection: this.props.connections.find(connection => connection.id === form.formData.targetConnectionId)
             }
         }, () => {
-            this.props.actions.saveProject(this.state.project)
+            this.props.projectActions.saveProject(this.state.project)
                 .then(project => {
                     this.props.history.push(`/projects/${project.id}/edit`);
                 });
